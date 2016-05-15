@@ -14,13 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mdevtunisia.manouba.demo.R;
-import com.mdevtunisia.manouba.demo.model.Person;
-import com.mdevtunisia.manouba.demo.parser.PersonParser;
-import com.mdevtunisia.manouba.demo.service.WebService;
+import com.mdevtunisia.manouba.demo.data.model.Person;
 import com.mdevtunisia.manouba.demo.ui.adapter.PersonAdapter;
-import com.mdevtunisia.manouba.demo.util.StringUtil;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by yermanov on 17/04/16.
@@ -30,14 +27,26 @@ public class PersonListFragment extends Fragment {
     private ListView mListView;
     private PersonAdapter mPersonAdapter;
 
-    private PersonTask mPersonTask;
-    private ProgressDialog mProgressDialog;
+    private ArrayList<Person> mPersonArrayList;
 
-    public static PersonListFragment getInstance() {
+    public static PersonListFragment getInstance(Bundle bundle) {
         PersonListFragment personListFragment =
                 new PersonListFragment();
 
+        personListFragment.setArguments(bundle);
+
         return personListFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            mPersonArrayList = bundle.getParcelableArrayList("PersonList");
+        }
     }
 
     @Nullable
@@ -56,31 +65,9 @@ public class PersonListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initView();
-
         initEvent();
 
         populateListView();
-    }
-
-    private void initView()
-    {
-        mProgressDialog = new ProgressDialog(getContext());
-        mProgressDialog.setTitle("Loading");
-        mProgressDialog.setMessage("Please wait...");
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setCanceledOnTouchOutside(true);
-        mProgressDialog.setCancelable(true);
-        mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (mPersonTask != null) {
-                    mPersonTask.cancel(true);
-                    mPersonTask = null;
-                }
-            }
-        });
     }
 
     private void initEvent()
@@ -98,53 +85,7 @@ public class PersonListFragment extends Fragment {
 
     private void populateListView()
     {
-        mPersonTask = new PersonTask();
-        mPersonTask.execute();
-    }
-
-    private class PersonTask extends AsyncTask<Void, Void, List<Person>> {
-
-        @Override
-        protected void onPreExecute()
-        {
-            super.onPreExecute();
-
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected List<Person> doInBackground(Void... params)
-        {
-            String json = WebService.getPersonList(getContext().getString(R.string.person_url));
-
-            List<Person> personList = null;
-
-            if (StringUtil.isEmpty(json) == false) {
-                personList = PersonParser.parsePersonList(json);
-            }
-
-            return personList;
-        }
-
-        @Override
-        protected void onPostExecute(List<Person> personList)
-        {
-            super.onPostExecute(personList);
-
-            mProgressDialog.dismiss();
-
-            mPersonAdapter = new PersonAdapter(getContext(), personList);
-            mListView.setAdapter(mPersonAdapter);
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        if (mPersonTask != null) {
-            mPersonTask.cancel(true);
-            mPersonTask = null;
-        }
+        mPersonAdapter = new PersonAdapter(getContext(), mPersonArrayList);
+        mListView.setAdapter(mPersonAdapter);
     }
 }

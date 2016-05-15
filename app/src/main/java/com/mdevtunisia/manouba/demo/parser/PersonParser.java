@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mdevtunisia.manouba.demo.model.Person;
+import com.mdevtunisia.manouba.demo.data.model.Person;
 import com.mdevtunisia.manouba.demo.util.StringUtil;
 
 import java.io.IOException;

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mdevtunisia.manouba.demo.R;
-import com.mdevtunisia.manouba.demo.model.Person;
+import com.mdevtunisia.manouba.demo.data.model.Person;
 import com.mdevtunisia.manouba.demo.util.StringUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
