@@ -13,6 +13,8 @@ android {
         
         ext.systemProperties= System.properties
         println "System property APP_VERSION_CODE_VALUE is ${systemProperties.APP_VERSION_CODE_VALUE}"
+        println "APP_VERSION_CODE_VALUE :: " + System.getenv('APP_VERSION_CODE_VALUE')
+        println "APP_VERSION_CODE_VALUE :: " + $System.env.APP_VERSION_CODE_VALUE
     }
 
     packagingOptions {
