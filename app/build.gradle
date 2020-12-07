@@ -12,7 +12,7 @@ android {
         versionName "1.0"
         
         ext.systemProperties= System.properties
-        println "System property FOO is ${systemProperties.FOO}"
+        println "System property APP_VERSION_CODE_VALUE is ${systemProperties.APP_VERSION_CODE_VALUE}"
     }
 
     packagingOptions {
@@ -35,16 +35,16 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
 
 
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.android.support:support-v4:23.3.0'
+    implementation 'com.android.support:appcompat-v7:23.3.0'
+    implementation 'com.android.support:design:23.3.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation 'com.android.support:support-v4:23.3.0'
 }
