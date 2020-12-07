@@ -18,6 +18,9 @@ android {
         for (String key : map.keySet()) {
             println "k:" + key + ", v:" + map.get(key)
         }
+
+
+        System.setProperty("APK_PATH_DEMO", "/ws/path/totr.apk");
     }
 
     packagingOptions {
