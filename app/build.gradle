@@ -12,8 +12,12 @@ android {
         versionName "1.0"
         
         ext.systemProperties= System.properties
-        println "System property APP_VERSION_CODE_VALUE is ${systemProperties.APP_VERSION_CODE_VALUE}"
         println "APP_VERSION_CODE_VALUE :: " + System.getenv('APP_VERSION_CODE_VALUE')
+
+        Map<String, String> map = System.getenv()
+        for (String key : map.keySet()) {
+            println "k:" + key + ", v:" + map.get(key)
+        }
     }
 
     packagingOptions {
