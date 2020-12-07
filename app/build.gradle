@@ -21,6 +21,12 @@ android {
 
 
         System.setProperty("APK_PATH_DEMO", "/ws/path/totr.apk");
+
+    }
+
+    task('setEnvTask', type: Exec) {
+        environment "APK_PATH_DEMO_OK", "/ws/path/ok/totr.apk"
+        // run or build code that needs that environment variable
     }
 
     packagingOptions {
